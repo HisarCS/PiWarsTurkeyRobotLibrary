@@ -5,13 +5,7 @@ This python library was created for the purposes of easing the understanding bet
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install PiWarsTurkiyeRobotKiti2019.
-
-```bash 
-sudo pip install PiWarsTurkiyeRobotKiti2019
-```
-
-Alternatively, its possible to install from Github.
+Its possible to install from Github.
 ```bash 
 git clone https://github.com/HisarCS/PiWarsTurkey-Library-Folders.git
 cd PiWarsTurkey-Library-Folders
@@ -21,12 +15,12 @@ sudo python setup.py install
 ## Usage
 
 ```python
-import PiWarsTurkiyeRobotKiti2019
+import PiWarsTurkeyRobotKit2019
 ```
 ## Documentation
 
 The library includes 5 classes as of now these are:
-- HizlandirilmisPiKamera (for a simplified and optimized way to use the Pi Camera and OpenCV)
+- FastPiCamera (for a simplified and optimized way to use the Pi Camera and OpenCV)
 - Kumanda (for an easy way to use the pygame Joystick class with the sixaxis PS3 controller)
 - MotorKontrol (for an easy way to use the Pololu DRV8835 motor control circuit for the Raspberry Pi with a controller)
 - ServoKontrol (for a simple way to use servo motors on the Raspberry Pi using GPIO pins)
@@ -34,7 +28,7 @@ The library includes 5 classes as of now these are:
 
 For the purposes of performance, some of the classes include multithtreading. This prevents some parts of the code to not have an effect on other parts of the code. Multithreading was especially implemented to HizlandirilmisPiKamera(for both grabbing and showing the frames), Kumanda(to get the controller values continuously), ServoKontrol(to prevent any sleep function in the class to affect the main thread).
 
-HizlandirilmisPiKamera:
+FastPiCamera:
 -
 - Methods -
 ```python
@@ -43,66 +37,66 @@ veriGuncelle()
 Updates the data obtained from the Pi Camera.
 
 ```python
-veriOkumayaBasla()
+startReadingData()
 ```
-Creates a new Thread to call ``` veriGuncelle()``` in order to update the data without slowing down the main thread.
+Creates a new Thread to call ``` updateData()``` in order to update the data without slowing down the main thread.
 
 ```python
-veriOku()
+readData()
 ```
 Returns the current data of the camera as a numpy array.
 
 ```python
-kareyiGostermeyiGuncelle()
+__updateShownFrame__()
 ```
 Creates and updates the opencv window that shows the image the Pi Camera is seeing. The "q" key can be used to close the window.
 
 ```python
-kareyiGoster()
+showFrame()
 ```
-Calls ``` kareyiGostermeyiGuncelle()``` in a new Thread to create a visual window without slowing down the main thread.
+Calls ``` __updateShownFrame__()``` in a new Thread to create a visual window without slowing down the main thread.
 
 - Example Usage -
 ```python
-from PiWarsTurkiyeRobotKiti2019 import HizlandirilmisPiKamera
+from PiWarsTurkeyRobotKit2019 import FastPiCamera
 
-camera = HizlandirilmisPiKamera()
-camera.veriOkumayaBasla()
-camera.kareyiGoster()
+camera = FastPiCamera()
+camera.startReadingData()
+camera. showFrame()
 ```
-The above example creates a new HizlandirilmisPiKamera object and uses it to show the image the camera is seeing until the "q" key is pressed.  
+The above example creates a new FastPiCamera object and uses it to show the image the camera is seeing until the "q" key is pressed.  
 
 The default resolution of 640x480 for camera is set when the constructor is called. If you want a different resolution settings, for instance 1280x720 ,then set the camera object as follows:
-``` camera = HizlandirilmisPiKamera(cozunurluk=(1280, 720))```
+``` camera = FastPiCamera(resolution=(1280, 720))```
 
-Keep in mind that the data has to be received using  ``` camera.veriOkumayaBasla()``` with ``` camera.veriOku()```  or  ``` camera.suAnkiKare``` , if further vision processing is wanted. ``` camera.suAnkiKare``` is the current frame variable in numpy array, where the function ``` camera.veriOku()```  returns variable ``` camera.suAnkiKare```. 
+Keep in mind that the data has to be received using  ``` camera.startReadingData()``` with ``` camera.readData() ```  or  ``` camera.currentFrame ``` , if further vision processing is wanted. ``` camera.currentFrame``` is the current frame variable in numpy array, where the function ``` camera.readData()```  returns variable ``` camera.currentFrame```. 
 
 The below example code will grab the frame from the camera in numpy array format, grayscale it, and display the frames in the **main thread**.
 ```python
-from PiWarsTurkiyeRobotKiti2019 import HizlandirilmisPiKamera
+from PiWarsTurkeyRobotKit2019 import FastPiCamera
 import cv2
 
-camera = HizlandirilmisPiKamera()
-camera.veriOkumayaBasla()
+camera = FastPiCamera()
+camera.startReadingData()
 
 while True:
-frame = camera.veriOku()
+frame = camera.readData()
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 cv2.imshow("gray", gray)
 ```
 Wheras in the example below, the grayscaled frames are both grabbed and displayed in **different threads**, **not in the main thread**. This method is strongly encouraged to increase the performance as much as possible.
 ```python
-from PiWarsTurkiyeRobotKiti2019 import HizlandirilmisPiKamera
+from PiWarsTurkeyRobotKit2019 import FastPiCamera
 import cv2
 
-camera = HizlandirilmisPiKamera()
-camera.veriOkumayaBasla()
-camera.kareyiGoster()
+camera = FastPiCamera()
+camera.startReadingData()
+camera.showFrame()
 
 while True:
-frame = camera.suAnkiKare
+frame = camera.currentFrame
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-camera.suAnkiKare = gray
+camera.currentFrame = gray
 ```
 Kumanda
 -
