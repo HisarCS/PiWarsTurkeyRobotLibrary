@@ -6,24 +6,24 @@ import math
 class MotorKontrol:
 
     def __init__(self):
-        self.hizSag = 0
-        self.hizSol = 0
+        self.rightSpeed = 0
+        self.leftSpeed = 0
 
-    def hizlariAyarla(self, hizSag, hizSol):
+    def setSpeeds(self, rightSpeed, leftSpeed):
 
-        self.hizSag = hizSag
-        self.hizSol = hizSol
+        self.rightSpeed = rightSpeed
+        self.leftSpeed = leftSpeed
 
-        480 if hizSag>480 else hizSag
-        -480 if hizSag < -480 else hizSag
+        480 if rightSpeed>480 else rightSpeed
+        -480 if rightSpeed < -480 else rightSpeed
 
-        480 if hizSol > 480 else hizSol
-        -480 if hizSol < -480 else hizSol
+        480 if leftSpeed > 480 else leftSpeed
+        -480 if leftSpeed < -480 else leftSpeed
 
 
-        motors.setSpeeds(hizSag, hizSol)
+        motors.setSpeeds(rightSpeed, leftSpeed)
 
-    def kumandaVerisiniMotorVerilerineCevirme(self, x, y):
+    def controllerDataToMotorData(self, x, y):
         
         r = math.hypot(x, y)
         t = math.atan2(y, x)
