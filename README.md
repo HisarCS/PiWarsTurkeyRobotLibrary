@@ -26,7 +26,7 @@ The library includes 5 classes as of now these are:
 - ServoKontrol (for a simple way to use servo motors on the Raspberry Pi using GPIO pins)
 - UltrasonikSensoru (for an easy way to use HC-SR04 ultrasonic distance sensors on the Raspberry Pi)
 
-For the purposes of performance, some of the classes include multithtreading. This prevents some parts of the code to not have an effect on other parts of the code. Multithreading was especially implemented to HizlandirilmisPiKamera(for both grabbing and showing the frames), Kumanda(to get the controller values continuously), ServoKontrol(to prevent any sleep function in the class to affect the main thread).
+For the purposes of performance, some of the classes include multithtreading. This prevents some parts of the code to not have an effect on other parts of the code. Multithreading was especially implemented to FastPiCamera(for both grabbing and showing the frames), Kumanda(to get the controller values continuously), ServoKontrol(to prevent any sleep function in the class to affect the main thread).
 
 FastPiCamera:
 -
