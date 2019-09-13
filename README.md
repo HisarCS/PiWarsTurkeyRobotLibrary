@@ -7,10 +7,10 @@ This python library was created for the purposes of easing the understanding bet
 
 ## Installation
 
-Its possible to install from Github.
+It's possible to install from Github.
 ```bash 
-git clone https://github.com/HisarCS/PiWarsTurkey-Library-Folders.git
-cd PiWarsTurkey-Library-Folders
+git clone https://github.com/HisarCS/PiWarsTurkeyRobotLibrary.git
+cd PiWarsTurkeyRobotLibrary
 sudo python setup.py install
 ```
 
@@ -255,6 +255,8 @@ Returns the distance measured by the ultrasonic sensor
 
 - Example Usage
 ```python
+import PiWarsTurkeyRobotKit2019
+
 ultra = PiWarsTurkeyRobotKiti2019.UltrasonicSensor(38, 40)
 
 while True:
