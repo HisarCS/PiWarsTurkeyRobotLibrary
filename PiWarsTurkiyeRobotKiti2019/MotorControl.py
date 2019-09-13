@@ -23,7 +23,7 @@ class MotorKontrol:
 
         motors.setSpeeds(rightSpeed, leftSpeed)
 
-    def controllerDataToMotorData(self, x, y):
+    def convertControllerDataToMotorData(self, x, y):
         
         r = math.hypot(x, y)
         t = math.atan2(y, x)

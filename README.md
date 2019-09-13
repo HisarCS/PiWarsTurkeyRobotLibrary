@@ -162,7 +162,7 @@ setSpeeds(rightSpeed, leftSpeed)
 Sets the speeds of the motors using the pololu-drv8835-rpi library. The range for the speeds are -480 to 480 where -480 is maximum speed in reverse. The right and left speeds are for motor 1 and motor 2 depending on which side they are on.
 
 ```python
-controllerDataToMotorData(x, y, t)
+convertControllerDataToMotorData(x, y, t)
 ```
 Returns the speed for the motor according to the values of a joystick from the controller. x and y are the x and y values of the joystick and t is a boolean value with True for the right motor and False for the left motor.
 
@@ -187,12 +187,12 @@ controller.startListening()
 
 while True:
 	lx, ly = controller.readLeftJoystickValues()
-	rightSpeed = motors.controllerDataToMotorData(lx, -ly, True)
-	leftSpeed = motors.controllerDataToMotorData(lx, -ly, False)
+	rightSpeed = motors.convertControllerDataToMotorData(lx, -ly, True)
+	leftSpeed = motors.convertControllerDataToMotorData(lx, -ly, False)
 
 	motors.setSpeeds(rightSpeed, leftSpeed)
 ```
-The above code initializes the motors and the controller and goes into a while loop. Inside the loop, the ```controllerDataToMotorData()```function is used to get the speed values for the motors. The y value is set to negative because on PS3 controllers specifically forwards on the joystick returns negative values. 
+The above code initializes the motors and the controller and goes into a while loop. Inside the loop, the ```convertControllerDataToMotorData()```function is used to get the speed values for the motors. The y value is set to negative because on PS3 controllers specifically forwards on the joystick returns negative values. 
 
 ServoControl
 -
