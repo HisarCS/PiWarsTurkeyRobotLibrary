@@ -82,9 +82,9 @@ camera = FastPiCamera()
 camera.startReadingData()
 
 while True:
-frame = camera.readData()
-gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-cv2.imshow("gray", gray)
+	frame = camera.readData()
+	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	cv2.imshow("gray", gray)
 ```
 Whereas in the example below, the grayscaled frames are both grabbed and displayed in **different threads**, **not in the main thread**. This method is strongly encouraged to increase the performance as much as possible.
 ```python
@@ -96,9 +96,9 @@ camera.startReadingData()
 camera.showFrame()
 
 while True:
-frame = camera.currentFrame
-gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-camera.currentFrame = gray
+	frame = camera.currentFrame
+	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	camera.currentFrame = gray
 ```
 Controller
 -
@@ -141,15 +141,15 @@ controller = PiWarsTurkeyRobotKiti2019.Controller()
 controller.startListening()
 
 while True:
-lx, ly = controller.readLeftJoystickValues()
-rx, ry = controller.readRightJoystickValues()
-buttons = controller.readButtons()
+	lx, ly = controller.readLeftJoystickValues()
+	rx, ry = controller.readRightJoystickValues()
+	buttons = controller.readButtons()
 
-print("The left joystick values are: ", lx, ly)
-print("The right joystick values are: ", rx, ry)
+	print("The left joystick values are: ", lx, ly)
+	print("The right joystick values are: ", rx, ry)
 
-if(0 in buttons):
-print("Button 0 was pressed!")
+	if(0 in buttons):
+		print("Button 0 was pressed!")
 ```
 The above code initializes a Controller object and prints the values from the left and right joysticks, as well as a set string when a button is pressed. Keep in mind that ```python startListening()``` has to be called once when the main code is executed, or the data won't be read from the controller.
 
@@ -172,7 +172,7 @@ import PiWarsTurkeyRobotKiti2019
 motors = PiWarsTurkeyRobotKiti2019.MotorControl()
 
 while True:
-motors.setSpeeds(480, 480)
+	motors.setSpeeds(480, 480)
 ```
 This code initializes motors and sets both of them to max speed.
 
@@ -186,11 +186,11 @@ controller = PiWarsTurkeyRobotKiti2019.Controller()
 controller.startListening()
 
 while True:
-lx, ly = controller.readLeftJoystickValues()
-rightSpeed = motors.controllerDataToMotorData(lx, -ly, True)
-leftSpeed = motors.controllerDataToMotorData(lx, -ly, False)
+	lx, ly = controller.readLeftJoystickValues()
+	rightSpeed = motors.controllerDataToMotorData(lx, -ly, True)
+	leftSpeed = motors.controllerDataToMotorData(lx, -ly, False)
 
-motors.setSpeeds(rightSpeed, leftSpeed)
+	motors.setSpeeds(rightSpeed, leftSpeed)
 ```
 The above code initializes the motors and the controller and goes into a while loop. Inside the loop, the ```controllerDataToMotorData()```function is used to get the speed values for the motors. The y value is set to negative because on PS3 controllers specifically forwards on the joystick returns negative values. 
 
@@ -217,14 +217,14 @@ servo.setToContinous()
 angle = 0
 add = 0
 while True:
-servo.setAngle(angle)
+	servo.setAngle(angle)
 
-if(angle == 180):
-add = -1
-elif(angle == 0):
-add = 1
-angle += add
-sleep(0.01)
+	if(angle == 180):
+		add = -1
+	elif(angle == 0):
+		add = 1
+	angle += add
+	sleep(0.01)
 ```
 In this case, the servo is set to continuous. A while loop is used to constantly change the angle of the servo by 1 and set the new angle.
 
@@ -238,10 +238,10 @@ servo = PiWarsTurkeyRobotKiti2019.ServoControl()
 servo.setToNotContinous()
 
 while True:
-servo.setAngle(180)
-sleep(1)
-servo.setAngle(0)
-sleep(1)
+	servo.setAngle(180)
+	sleep(1)
+	servo.setAngle(0)
+	sleep(1)
 ```
 In this case, the servo is set to non-continuous. A while loop is used to set the angle of servo with one minute sleeps
 
@@ -258,7 +258,7 @@ Returns the distance measured by the ultrasonic sensor
 ultra = PiWarsTurkeyRobotKiti2019.UltrasonicSensor(38, 40)
 
 while True:
-print(ultra.measureDistance())
+	print(ultra.measureDistance())
 ```
 The code above prints the distance. The integers inside the initializer for the class are the pins it is attached to.
 
